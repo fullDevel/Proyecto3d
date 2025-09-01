@@ -4,12 +4,17 @@ var Schema = mongoose.Schema
 //intanciamiento  estructura 
 var productosSchema = new Schema({
     prd_codigo: String,
+    prd_categoria: String,
     prd_nombre: String,
     prd_imagen: String,
     prd_precio: Number,
     prd_cantidad: Number,
     prd_descripcion: String,
-    prd_estado: String
+    prd_estado: String,
+    prd_alto: String,
+    prd_ancho: String,
+    prd_profundidad: String,
+
 })
 // modelo = nombre de coleccion + estructura de la coleccion
 
@@ -38,12 +43,17 @@ productosModel.ExisteId = function (post, callback) {
 productosModel.Guardar = function (post, callback) {
     const instancia = new Mymodel
     instancia.prd_codigo = post.prd_codigo
+    instancia.prd_categoria = post.prd_categoria
     instancia.prd_nombre = post.prd_nombre
     instancia.prd_imagen = post.prd_imagen
     instancia.prd_cantidad = parseInt(post.prd_cantidad)
     instancia.prd_precio = parseInt(post.prd_precio)
     instancia.prd_descripcion = post.prd_descripcion
     instancia.prd_estado = post.prd_estado
+    instancia.prd_alto = post.prd_alto
+    instancia.prd_ancho = post.prd_ancho
+    instancia.prd_profundidad = post.prd_profundidad
+
 
     instancia.save().then((respuesta) => {
         console.log(respuesta)
@@ -70,14 +80,17 @@ productosModel.CargarId = function (post, callback) {
 }
 
 productosModel.Actualizar = function (post, callback) {
-    Mymodel.findOneAndUpdate({ _id: post.prd_id }, { 
+    Mymodel.findOneAndUpdate({ _id: post.prd_id }, {
         prd_nombre: post.prd_nombre,
+        prd_categoria: post.prd_categoria,
         prd_imagen: post.prd_imagen,
         prd_cantidad: parseInt(post.prd_cantidad),
         prd_precio: parseInt(post.prd_precio),
-        prd_descripcion:post.prd_descripcion,
-        prd_estado:post.prd_estado
-
+        prd_descripcion: post.prd_descripcion,
+        prd_estado: post.prd_estado,
+        prd_alto: post.prd_alto,
+        prd_ancho: post.prd_ancho,
+        prd_profundidad: post.prd_profundidad
     }).then((respuesta) => {
         return callback({ state: true })
     }).catch((error) => {
@@ -96,7 +109,7 @@ productosModel.Eliminar = function (post, callback) {
 }
 
 productosModel.CargarTodosCliente = function (post, callback) {
-    Mymodel.find({prd_estado:'Activo'}, {}).then((respuesta) => {
+    Mymodel.find({ prd_estado: 'Activo' }, {}).then((respuesta) => {
         return callback(respuesta)
     })
 }

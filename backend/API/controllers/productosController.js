@@ -12,7 +12,11 @@ productosController.Guardar = function (request, response) {
         prd_cantidad: request.body.prd_cantidad,
         prd_precio: request.body.prd_precio,
         prd_descripcion: request.body.prd_descripcion,
-        prd_estado: request.body.prd_estado
+        prd_estado: request.body.prd_estado,
+        prd_alto: request.body.prd_alto,
+        prd_ancho: request.body.prd_ancho,
+        prd_profundidad: request.body.prd_profundidad,
+        prd_categoria: request.body.prd_categoria
     }
     console.log(post)
     if (post.prd_codigo == undefined || post.prd_codigo == null || post.prd_codigo.trim() == '') {
@@ -34,7 +38,7 @@ productosController.Guardar = function (request, response) {
         response.json({ state: false, mensaje: "El campo precio es obligatorio" })
         return false
     }
-     console.log(post.prd_imagen)
+    console.log(post.prd_imagen)
     if (post.prd_imagen == undefined || post.prd_imagen == null || post.prd_imagen.trim() == '') {
         response.json({ state: false, mensaje: "Imagen obligatoria" })
         return false
@@ -47,6 +51,11 @@ productosController.Guardar = function (request, response) {
 
     if (post.prd_estado == undefined || post.prd_estado == null || post.prd_estado.trim() == '') {
         response.json({ state: false, mensaje: "El campo estado es obligatorio" })
+        return false
+    }
+
+    if (post.prd_categoria == undefined || post.prd_categoria == null || post.prd_categoria.trim() == '') {
+        response.json({ state: false, mensaje: "El campo categoria es obligatorio" })
         return false
     }
 
@@ -99,7 +108,12 @@ productosController.Actualizar = function (request, response) {
         prd_cantidad: request.body.prd_cantidad,
         prd_precio: request.body.prd_precio,
         prd_descripcion: request.body.prd_descripcion,
-        prd_estado: request.body.prd_estado
+        prd_estado: request.body.prd_estado,
+        prd_alto: request.body.prd_alto,
+        prd_ancho: request.body.prd_ancho,
+        prd_profundidad: request.body.prd_profundidad,
+        prd_categoria: request.body.prd_categoria
+
     }
     console.log(post)
     if (post.prd_id == undefined || post.prd_id == null || post.prd_id.trim() == '') {

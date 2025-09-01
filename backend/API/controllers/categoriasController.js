@@ -80,6 +80,23 @@ categoriasController.CargarId = function (request, response) {
     })
 }
 
+
+categoriasController.ConsultaCod = function (request, response) {
+
+    var post = {
+        ctg_codigo: request.body.ctg_codigo
+    }
+
+    if (post.ctg_codigo == undefined || post.ctg_codigo == null || post.ctg_codigo.trim() == '') {
+        response.json({ state: false, mensaje: "El campo codigo es obligatorio" })
+        return false
+    }
+
+    categoriasModel.ConsultaCod(post, function (respuesta) {
+        response.json(respuesta)
+    })
+}
+
 categoriasController.Actualizar = function (request, response) {
     console.log("Actualizar Producto back")
     var post = {

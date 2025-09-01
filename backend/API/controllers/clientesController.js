@@ -74,6 +74,8 @@ clientesController.Actualizar = function (request, response) {
         response.json({ state: false, mensaje: "El campo nombre es obligatorio" })
         return false
     }
+    console.log("Actualizar usuario")
+    console.log(post)
     clientesModel.ExisteId(post, function (existe) {
         if (existe.length == 0) {
             response.json({ state: false, mensaje: "El Id que desea actualizar no existe" })

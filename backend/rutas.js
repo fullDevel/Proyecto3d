@@ -22,6 +22,21 @@ app.post('/Usuarios/CargarId/', security.Soloadmin, function (request, response)
     usuariosController.CargarId(request, response)
 })
 
+app.post('/Usuarios/ConsultaActivos/', security.Soloadmin, function (request, response) {
+    usuariosController.ConsultaActivos(request, response)
+})
+
+app.post('/Usuarios/ConsultaInactivos/', security.Soloadmin, function (request, response) {
+    usuariosController.ConsultaInactivos(request, response)
+})
+
+app.post('/Usuarios/ConsultaBaneados/', security.Soloadmin, function (request, response) {
+    usuariosController.ConsultaBaneados(request, response)
+})
+
+app.post('/Usuarios/ConsultaUsuarios/', security.Soloadmin, function (request, response) {
+    usuariosController.ConsultaUsuarios(request, response)
+})
 
 app.post('/Usuarios/Registrar/', function (request, response) {
     usuariosController.Registrar(request, response)
@@ -71,22 +86,28 @@ app.post('/Usuarios/ActualizarMisDatos/', function (request, response) {
 
 const categoriasController = require('./API/controllers/categoriasController').categoriasController
 
-app.post('/categorias/Guardar', function (request, response) {
+app.post('/categorias/Guardar', security.Soloadmin, function (request, response) {
     categoriasController.Guardar(request, response)
 })
-app.post('/categorias/CargarTodasCategorias', function (request, response) {
+app.post('/categorias/CargarTodasCategorias', security.Soloadmin, function (request, response) {
     
     categoriasController.CargarTodasCategorias(request, response)
 })
-app.put('/categorias/Actualizar', function (request, response) {
+app.put('/categorias/Actualizar', security.Soloadmin, function (request, response) {
     categoriasController.Actualizar(request, response)
 })
-app.delete('/categorias/Eliminar', function (request, response) {
+app.delete('/categorias/Eliminar',security.Soloadmin,  function (request, response) {
     categoriasController.Eliminar(request, response)
 })
-app.post('/categorias/CargarId', function (request, response) {
+app.post('/categorias/CargarId', security.Soloadmin, function (request, response) {
     categoriasController.CargarId(request, response)
 })
+
+app.post('/categorias/ConsultaCod', security.Soloadmin, function (request, response) {
+    categoriasController.ConsultaCod(request, response)
+})
+
+
 
 
 const productosController = require('./API/controllers/productosController').productosController
@@ -185,4 +206,30 @@ app.post('/slide/CargarId', function (request, response) {
 
 app.put('/slide/Actualizar', function (request, response) {
     slideController.Actualizar(request, response)
+})
+
+app.delete('/slide/Eliminar', function (request, response) {
+    slideController.Eliminar(request, response)
+})
+
+const promocionesController = require('./API/controllers/promocionesController.js').promocionesController
+
+app.post('/promociones/Guardar',  function (request, response) {
+    promocionesController.Guardar(request, response)
+})
+
+app.post('/promociones/CargarTodos',  function (request, response) {
+    promocionesController.CargarTodos(request, response)
+})
+
+app.post('/promociones/CargarId', function (request, response) {
+    promocionesController.CargarId(request, response)
+})
+
+app.put('/promociones/Actualizar', function (request, response) {
+    promocionesController.Actualizar(request, response)
+})
+
+app.delete('/promociones/Eliminar', function (request, response) {
+    promocionesController.Eliminar(request, response)
 })

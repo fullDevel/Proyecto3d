@@ -3,7 +3,7 @@ var config = {
 }
 config.bd = "Pro_Impre_3d"
 config.puerto = 3000
-config.claveSecreta = 'Market%$3D¿?Print-.,ep235873465la!"#$"%&/()=?¨*[]}{+´.,'
+
 
 config.email.host = 'smtp.gmail.com'
 config.email.port = 587

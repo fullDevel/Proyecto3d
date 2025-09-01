@@ -65,6 +65,16 @@ categoriasModel.CargarId = function (post, callback) {
 
 }
 
+categoriasModel.ConsultaCod = function (post, callback) {
+    Mymodel.find({ ctg_codigo: post.ctg_codigo }, {}).then((respuesta) => {
+        return callback(respuesta)
+    })
+
+
+
+}
+
+
 categoriasModel.Actualizar = function (post, callback) {
     Mymodel.findOneAndUpdate({ _id: post.ctg_id }, { 
         ctg_nombre: post.ctg_nombre,

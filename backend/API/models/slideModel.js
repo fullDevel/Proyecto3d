@@ -21,6 +21,7 @@ slideModel.Guardar = function (post, callback) {
     instancia.sld_nombre = post.sld_nombre
     instancia.sld_imagen = post.sld_imagen
     instancia.sld_descripcion = post.sld_descripcion
+    instancia.sld_estado = post.sld_estado
 
 
     instancia.save().then((respuesta) => {
@@ -70,6 +71,15 @@ slideModel.Actualizar = function (post, callback) {
         sld_estado:post.sld_estado
 
     }).then((respuesta) => {
+        return callback({ state: true })
+    }).catch((error) => {
+        console.log(error)
+        return callback({ state: false })
+    })
+}
+
+slideModel.Eliminar = function (post, callback) {
+    Mymodel.findOneAndDelete({ _id: post.sld_id }, {}).then((respuesta) => {
         return callback({ state: true })
     }).catch((error) => {
         console.log(error)

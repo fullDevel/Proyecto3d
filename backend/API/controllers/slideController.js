@@ -10,6 +10,7 @@ slideController.Guardar = function (request, response) {
         sld_codigo: request.body.sld_codigo,
         sld_nombre: request.body.sld_nombre,
         sld_imagen: request.body.sld_imagen,
+        sld_estado: request.body.sld_estado,
         sld_descripcion: request.body.sld_descripcion
 
     }
@@ -32,6 +33,11 @@ slideController.Guardar = function (request, response) {
 
     if (post.sld_descripcion == undefined || post.sld_descripcion == null || post.sld_descripcion.trim() == '') {
         response.json({ state: false, mensaje: "El campo descripcion es obligatorio" })
+        return false
+    }
+
+     if (post.sld_estado == undefined || post.sld_estado == null || post.sld_estado.trim() == '') {
+        response.json({ state: false, mensaje: "El campo estado es obligatorio" })
         return false
     }
 console.log("antes Existe Codigo")
@@ -130,4 +136,30 @@ slideController.Actualizar = function (request, response) {
 
 }
 
+slideController.Eliminar = function (request, response) {
+    var post = {
+        sld_id: request.body.sld_id
+    }
+
+    if (post.sld_id == undefined || post.sld_id == null || post.sld_id.trim() == '') {
+        response.json({ state: false, mensaje: "El campo id es obligatorio" })
+        return false
+    }
+
+    slideModel.ExisteId(post, function (existe) {
+        if (existe.length == 0) {
+            response.json({ state: false, mensaje: "El Id que desea eliminar no existe" })
+        } else {
+            slideModel.Eliminar(post, function (respuesta) {
+                if (respuesta.state == true) {
+                    response.json({ state: true, mensaje: "Se ha eliminado el elemento" })
+                } else {
+                    response.json({ state: false, mensaje: "Se presento un error al eliminar el elemento" })
+                }
+            })
+        }
+
+    })
+
+}
 module.exports.slideController = slideController

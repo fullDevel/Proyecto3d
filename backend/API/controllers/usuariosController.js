@@ -38,7 +38,7 @@ usuariosController.Guardar = function (request, response) {
         return false
     }
 
-    post.usu_password = sha256(post.usu_password + config.claveSecreta)
+    post.usu_password = sha256(post.usu_password + config.clavesecreta)
 
     usuariosModel.ExisteEmail(post, function (existe) {
         if (existe.length == 0) {
@@ -66,8 +66,7 @@ usuariosController.Actualizar = function (request, response) {
         usu_id: request.body.usu_id,
         usu_nombre: request.body.usu_nombre,
         usu_estado: request.body.usu_estado,
-        usu_rol: request.body.usu_rol
-    }
+        usu_rol: request.body.usu_rol}
     if (post.usu_nombre == undefined || post.usu_nombre == null || post.usu_nombre.trim() == '') {
         response.json({ state: false, mensaje: 'El campo nombre es obligatorio' })
         return false
@@ -180,7 +179,7 @@ usuariosController.Registrar = function (request, response) {
 
 
 
-    post.usu_password = sha256(post.usu_password + config.claveSecreta)
+    post.usu_password = sha256(post.usu_password + config.clavesecreta)
 
     var numAzar = 'G-' + Math.floor(Math.random() * (9999 - 1000) + 1000)
 
@@ -275,7 +274,7 @@ usuariosController.Login = function (request, response) {
         return false
     }
 
-    post.usu_password = sha256(post.usu_password + config.claveSecreta)
+    post.usu_password = sha256(post.usu_password + config.clavesecreta)
     console.log(post)
     usuariosModel.Login(post, function (respuesta) {
         console.log(respuesta.datos.length)
@@ -431,7 +430,7 @@ usuariosController.RecuperarPassword = function (request, response) {
         return false
     }
 
-    post.usu_password = sha256(post.usu_password + config.claveSecreta)
+    post.usu_password = sha256(post.usu_password + config.secreta)
 
     usuariosModel.RecuperarPassword(post, function (respuesta) {
         console.log(respuesta)
@@ -462,7 +461,7 @@ usuariosController.ActualizarPass = function(request,response){
     }
 
 
-    post.usu_password = sha256(post.usu_password + config.claveSecreta)
+    post.usu_password = sha256(post.usu_password + config.clavesecreta)
 
 
     usuariosModel.ActualizarPass(post,function(respuesta){
@@ -497,7 +496,14 @@ usuariosController.CargarMisDatos = function(request,response){
 usuariosController.ActualizarMisDatos = function(request,response){
     var post = {
         usu_id: request.session.usu_id,
-        usu_nombre:request.body.usu_nombre
+        usu_nombre:request.body.usu_nombre,
+        usu_ciudad: request.body.usu_ciudad,
+        usu_barrio: request.body.usu_barrio,
+        usu_calle: request.body.usu_calle,
+        usu_carrera: request.body.usu_carrera,
+        usu_num: request.body.usu_num,
+        usu_complemento: request.body.usu_complemento
+    
     }
 
     if (post.usu_id == undefined || post.usu_id == null || post.usu_id.trim() == '') {
@@ -510,8 +516,12 @@ usuariosController.ActualizarMisDatos = function(request,response){
         return false
     }
 
+    console.log("Actualizar misdatos")
+    console.log(post)
+    
     usuariosModel.ActualizarMisDatos(post,function(respuesta){
-        if(respuesta.state == true){
+        console.log(respuesta)
+        if(respuesta.state == true){    
             response.json({state:true,mensaje:"Se han actualizado sus datos"})
         }else{
             response.json({state:false,mensaje:"Se presnetó un error al actualizar los datos"})
@@ -519,6 +529,34 @@ usuariosController.ActualizarMisDatos = function(request,response){
     })
 
 
+}
+
+usuariosController.ConsultaActivos = function (request, response) {
+    console.log("Usuarios activos")
+    usuariosModel.ConsultaActivos(null, function (respuesta) {
+        response.json(respuesta)
+    })
+}
+
+usuariosController.ConsultaInactivos = function (request, response) {
+    console.log("Usuarios Inactivos")
+    usuariosModel.ConsultaInactivos(null, function (respuesta) {
+        response.json(respuesta)
+    })
+}
+
+usuariosController.ConsultaBaneados = function (request, response) {
+    console.log("Usuarios Baneados")
+    usuariosModel.ConsultaBaneados(null, function (respuesta) {
+        response.json(respuesta)
+    })
+}
+
+usuariosController.ConsultaUsuarios = function (request, response) {
+    console.log("Usuarios Baneados")
+    usuariosModel.ConsultaUsuarios(null, function (respuesta) {
+        response.json(respuesta)
+    })
 }
 //Ruta de exportacion
 module.exports.usuariosController = usuariosController

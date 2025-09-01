@@ -60,7 +60,10 @@ clientesModel.CargarId = function(post,callback){
 }
 
 clientesModel.Actualizar = function(post,callback){
-    Mymodel.findOneAndUpdate({_id:post.cli_id},{cli_nombre:post.cli_nombre}).then((respuesta)=>{
+    Mymodel.findOneAndUpdate({_id:post.cli_id},{
+        cli_nombre:post.cli_nombre,
+ 
+    }).then((respuesta)=>{
         return callback({state:true})
     }).catch((error)=>{
         console.log(error)
